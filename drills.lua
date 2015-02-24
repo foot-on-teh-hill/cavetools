@@ -1,3 +1,8 @@
+minetest.register_craftitem("cavetools:drillengine", {
+	inventory_image = "cavetools_drillengine.png",
+	wield_image = "cavetools_drillengine.png",
+})
+
 cave_tools.register_drill = function(desc, item_name, image, dig_shape0, uses)
 	minetest.register_tool(item_name, {
 		description = desc,
@@ -104,29 +109,38 @@ end
 
 -- Any shape can be specified, but the standard configuration only uses 1x1 block big shapes
 cave_tools.mini_drill_shape = {
-	{x =  0, y =  0, z = 0},
+	{x =  0, y =  0, z = 0}
 }
 
 cave_tools.normal_drill_shape = {
-	{x =  0, y =  0, z = 0},
+	{x =  0, y =  0, z = 0}
 }
 
 cave_tools.deep_drill_shape = {
-	{x =  0, y =  0, z = 0},
+	{x =  0, y =  0, z = 0}
 }
 
 cave_tools.generate_dig_shape_depth(cave_tools.mini_drill_shape, 1)
 cave_tools.generate_dig_shape_depth(cave_tools.normal_drill_shape, 2)
 cave_tools.generate_dig_shape_depth(cave_tools.deep_drill_shape, 3)
-cave_tools.register_drill("Mini Drill", "cavetools:minidrill", "cavetools_minidrill.png", cave_tools.mini_drill_shape, 100)
-cave_tools.register_drill("Normal Drill", "cavetools:drill", "cavetools_drill.png", cave_tools.normal_drill_shape, 150)
-cave_tools.register_drill("Deep Drill", "cavetools:deepdrill", "cavetools_deepdrill.png", cave_tools.deep_drill_shape, 200)
+cave_tools.register_drill("Mini Drill", "cavetools:minidrill", "cavetools_minidrill.png", cave_tools.mini_drill_shape, 60)
+cave_tools.register_drill("Normal Drill", "cavetools:drill", "cavetools_drill.png", cave_tools.normal_drill_shape, 80)
+cave_tools.register_drill("Deep Drill", "cavetools:deepdrill", "cavetools_deepdrill.png", cave_tools.deep_drill_shape, 160)
+
+minetest.register_craft({
+	output = "cavetools:drillengine 2",
+	recipe = {
+		{"",					"default:steel_ingot",	""						},
+		{"default:steel_ingot",	"default:mese_block",	"default:steel_ingot"	},
+		{"",					"default:steel_ingot",	""						}
+	}
+})
 
 minetest.register_craft({
 	output = "cavetools:minidrill",
 	recipe = {
 		{"",					"default:mese_crystal",	""						},
-		{"default:mese_crystal","default:steel_ingot",	"default:mese_crystal"	},
+		{"default:mese_crystal","cavetools:drillengine","default:mese_crystal"	},
 		{"",					"default:steel_ingot",	""						}
 	}
 })
@@ -135,7 +149,7 @@ minetest.register_craft({
 	output = "cavetools:drill",
 	recipe = {
 		{"",					"default:diamond",		""						},
-		{"default:diamond",		"default:steel_ingot",	"default:diamond"		},
+		{"default:diamond",		"cavetools:drillengine","default:diamond"		},
 		{"",					"default:steel_ingot",	""						}
 	}
 })
@@ -145,7 +159,7 @@ if minetest.get_modpath("moreores") ~= nil then
 		output = "cavetools:deepdrill",
 		recipe = {
 			{"",						"moreores:mithril_ingot",	""						},
-			{"moreores:mithril_ingot",	"default:steel_ingot",		"moreores:mithril_ingot"},
+			{"moreores:mithril_ingot",	"cavetools:drillengine",	"moreores:mithril_ingot"},
 			{"",						"default:steel_ingot",		""						}
 		}
 	})
