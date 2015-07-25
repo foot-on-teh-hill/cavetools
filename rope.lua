@@ -1,8 +1,12 @@
+local creative = minetest.setting_getbool("creative_mode")
 function cave_tools.place_rope(pos, itemstack)
 	if itemstack == nil and itemstack:get_count() <= 1 then
 		return
 	else
 		local maxNodes = itemstack:get_count();
+		if creative then
+			maxNodes = 100
+		end
 		local nSetNodes = 0;
 
 		for i = 2, maxNodes do
@@ -17,7 +21,9 @@ function cave_tools.place_rope(pos, itemstack)
 				end
 			end
 		end
-		itemstack:set_count(maxNodes - nSetNodes);
+		if not creative then
+			itemstack:set_count(maxNodes - nSetNodes);
+		end
 	end
 end
 
@@ -66,7 +72,9 @@ function cave_tools.dig_rope(pos, digger)
 	if inventory == nil then
 		return
 	end
-	inventory:add_item("main", "cavetools:rope " .. nDugNodes)
+	if not creative then
+		inventory:add_item("main", "cavetools:rope " .. nDugNodes)
+	end
 end
 
 minetest.register_node("cavetools:rope", {
