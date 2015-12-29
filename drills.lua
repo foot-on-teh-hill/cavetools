@@ -131,7 +131,7 @@ minetest.register_craft({
 	output = "cavetools:drillengine 2",
 	recipe = {
 		{"",					"default:steel_ingot",	""						},
-		{"default:steel_ingot",	"default:mese_block",	"default:steel_ingot"	},
+		{"default:steel_ingot",	"default:mese",			"default:steel_ingot"	},
 		{"",					"default:steel_ingot",	""						}
 	}
 })
